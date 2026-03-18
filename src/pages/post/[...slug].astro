@@ -1,41 +1,33 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
+import { type CollectionEntry } from 'astro:content'
 import BlogPost from '@/layouts/BlogPost'
 import Code from '@/components/mdx/Code'
-import ListRelatedPosts from '@/components/ListRelatedPosts'
-import Share from '@/components/Share'
 import TableOfContents from '@/components/TableOfContents'
 import { getPosts } from '@/utils'
 import SButton from '@/components/mdx/SButton'
-import Disqus from '@/components/Disqus'
-import { disqusConfig } from '@/data/disqus.config'
+import { Image } from 'astro:assets'
 
-const posts = await getCollection('blog')
 export async function getStaticPaths() {
 	const posts = await getPosts()
 
-	return posts.map((post) => ({
+	return posts.map((post, index) => ({
 		params: { slug: post.slug },
-		props: post
+		props: {
+			post,
+			prevPost: index + 1 < posts.length ? posts[index + 1] : null,
+			nextPost: index - 1 >= 0 ? posts[index - 1] : null
+		}
 	}))
 }
-type Props = CollectionEntry<'blog'>
 
-const post = Astro.props
-const MAX_POSTS = 3
-const getRelatedPosts = (post: Props) => {
-	const lowercaseTags = post.data.tags.map((tag) => tag.toLowerCase())
-	const relatedPosts = posts.filter(
-		(p) => p.slug !== post.slug && p.data.tags.some((t) => lowercaseTags.includes(t.toLowerCase()))
-	)
-	return relatedPosts.slice(0, MAX_POSTS)
+type Props = {
+	post: CollectionEntry<'blog'>
+	prevPost: CollectionEntry<'blog'> | null
+	nextPost: CollectionEntry<'blog'> | null
 }
 
-const relatedPosts = getRelatedPosts(post)
-
+const { post, prevPost, nextPost } = Astro.props
 const { Content, headings, remarkPluginFrontmatter } = await post.render()
-
-const disqusEnabled = disqusConfig.enabled
 ---
 
 <BlogPost
@@ -45,9 +37,8 @@ const disqusEnabled = disqusConfig.enabled
 	readTime={remarkPluginFrontmatter.minutesRead}
 >
 	<div class='grid grid-cols-1 md:grid-cols-[20%_auto] gap-10 mt-8'>
-		<!-- aside  -->
-		<aside class='md:flex flex-col gap-8 hidden'>
-			<Share />
+		<!-- aside -->
+		<aside class='md:flex flex-col hidden'>
 			<div class='sticky top-24 self-start hidden md:block transition-all duration-200'>
 				{headings && headings.length > 0 && <TableOfContents {headings} />}
 			</div>
@@ -55,17 +46,77 @@ const disqusEnabled = disqusConfig.enabled
 
 		<!-- post -->
 		<article class='max-w-full w-full'>
+			{
+				post.data.heroImage && (
+					<Image
+						src={post.data.heroImage}
+						width={1000}
+						height={500}
+						quality={100}
+						format='jpg'
+						loading='eager'
+						class='rounded-md w-full max-h-[300px] md:max-h-[500px] mb-8 object-cover'
+						style='filter: sepia(10%) saturate(88%);'
+						alt={`img of ${post.data.title}`}
+					/>
+				)
+			}
 			<div class='prose prose-lg md:prose-xl dark:prose-invert mb-12 min-w-full'>
 				<Content components={{ pre: Code, SButton }} />
 			</div>
 
-			<!-- related posts -->
-			<footer>
-				<h2 class='font-bold text-lg dark:text-white mb-6'>Related Posts</h2>
-				<ListRelatedPosts posts={relatedPosts} />
-			</footer>
+			<!-- prev / next navigation -->
+			<nav
+				class='flex items-stretch justify-between gap-6 pt-10 mt-6'
+				style='border-top: 1px solid var(--border);'
+			>
+				{
+					prevPost ? (
+						<a
+							href={`/post/${prevPost.slug}/`}
+							class='group flex flex-col gap-2 max-w-[48%] px-5 py-4 rounded-xl transition-shadow duration-200 hover:shadow-md'
+							style='border: 1px solid var(--border); background-color: var(--bg-card);'
+						>
+							<span
+								class='text-xs font-semibold uppercase tracking-widest'
+								style='color: var(--text-muted);'
+							>
+								← Previous
+							</span>
+							<span
+								class='text-base font-semibold leading-snug group-hover:underline underline-offset-2'
+								style='color: var(--text);'
+							>
+								{prevPost.data.title}
+							</span>
+						</a>
+					) : (
+						<div />
+					)
+				}
+				{
+					nextPost && (
+						<a
+							href={`/post/${nextPost.slug}/`}
+							class='group flex flex-col gap-2 items-end text-right max-w-[48%] ml-auto px-5 py-4 rounded-xl transition-shadow duration-200 hover:shadow-md'
+							style='border: 1px solid var(--border); background-color: var(--bg-card);'
+						>
+							<span
+								class='text-xs font-semibold uppercase tracking-widest'
+								style='color: var(--text-muted);'
+							>
+								Next →
+							</span>
+							<span
+								class='text-base font-semibold leading-snug group-hover:underline underline-offset-2'
+								style='color: var(--text);'
+							>
+								{nextPost.data.title}
+							</span>
+						</a>
+					)
+				}
+			</nav>
 		</article>
 	</div>
-
-	{disqusEnabled && <Disqus />}
 </BlogPost>

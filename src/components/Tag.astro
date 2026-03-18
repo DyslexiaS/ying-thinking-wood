@@ -7,7 +7,10 @@ const { tag } = Astro.props
 
 <a href={`/tags/${encodeURIComponent(tag.toLowerCase())}`} aria-label={tag}>
 	<span
-		class='bg-indigo-600 font-semibold text-white dark:bg-indigo-900 dark:text-white shadow text-sm w-fit px-2 py-1 md:px-5 md:py-2 rounded-full'
+		class='text-xs font-semibold w-fit px-3 py-1 rounded-full transition-colors duration-150'
+		style='border: 1px solid var(--accent); color: var(--accent);'
+		onmouseover="this.style.backgroundColor='var(--accent)';this.style.color='var(--bg)';"
+		onmouseout="this.style.backgroundColor='transparent';this.style.color='var(--accent)';"
 	>
 		{tag ?? 'Blog Tag'}
 	</span>

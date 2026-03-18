@@ -2,39 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Forest color tokens ──────────────────────────────────── */
+:root {
+	--bg:         #F7F5F0;
+	--bg-card:    #F0EDE6;
+	--text:       #1C1C18;
+	--text-muted: #7A7570;
+	--accent:     #4A6741;
+	--amber:      #B89A6B;
+	--border:     #DDD9D2;
+}
+
+.dark {
+	--bg:         #0E1210;
+	--bg-card:    #151A16;
+	--text:       #E8E4DC;
+	--text-muted: #8A8880;
+	--accent:     #7DAB74;
+	--amber:      #C4A882;
+	--border:     #2A3028;
+}
+
+/* ─── Base layer ───────────────────────────────────────────── */
 @layer base {
-	/* body {
-		transition: background-color 0.5s ease;
-	} */
+	html {
+		background-color: var(--bg);
+		color: var(--text);
+	}
+
+	body {
+		font-family: 'Manrope', sans-serif;
+		background-color: var(--bg);
+		color: var(--text);
+	}
+
+	/* Subtle grain overlay for depth */
+	body::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 999;
+		opacity: 0.025;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+		background-repeat: repeat;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		color: var(--text);
+	}
+
+	.prose h1,
+	.prose h2,
+	.prose h3,
+	.prose h4,
+	.prose h5,
+	.prose h6 {
+		color: var(--text) !important;
+	}
 
 	.prose code {
-		@apply text-base;
+		font-size: 0.875em;
 	}
 
-	/* prose styles here */
-	.prose h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		@apply text-zinc-800 dark:text-zinc-100   !important;
+	.prose pre {
+		line-height: 1.45;
+		padding-top: 0.75rem !important;
+		padding-bottom: 0.75rem !important;
 	}
 
+	.prose pre code {
+		font-size: 0.875em;
+		line-height: 1.45;
+	}
+
+	/* Light mode code block — more opaque background */
+	html:not(.dark) .shiki {
+		background-color: rgba(0, 0, 0, 0.055) !important;
+	}
+
+	/* Comfortable reading typography, especially for Chinese */
+	.prose {
+		font-size: 18px;
+		line-height: 1.95;
+		color: var(--text);
+	}
+
+	.prose p {
+		line-height: 1.95;
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;
+	}
+
+	@media (min-width: 768px) {
+		.prose {
+			font-size: 19px;
+			line-height: 2;
+		}
+		.prose p {
+			line-height: 2;
+		}
+	}
+
+	.prose a {
+		color: var(--accent);
+	}
+
+	.prose a:hover {
+		color: var(--amber);
+	}
+
+	.prose blockquote {
+		border-left-color: var(--amber);
+		color: var(--text-muted);
+	}
+
+	/* Shiki dark mode */
 	html.dark .shiki,
 	html.dark .shiki span {
-	  color: var(--shiki-dark) !important;
-	  background-color: theme(colors.gray.900) !important;
+		color: var(--shiki-dark) !important;
+		background-color: #151A16 !important;
 	}
 }
 
-.glass {
-	background: rgba(57, 56, 56, 0.52);
-	backdrop-filter: blur(13px) saturate(150%);
-	-webkit-backdrop-filter: blur(13px) saturate(150%);
-	z-index: -1;
+/* ─── TOC links ────────────────────────────────────────────── */
+.toc-link {
+	@apply block border-l-2 border-transparent pl-3 py-1 mb-1
+		text-sm transition-colors duration-150;
+	color: var(--text-muted);
+	line-height: 1.5;
 }
 
-.shadow {
-	box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
+.toc-link:hover {
+	color: var(--text);
 }
+
+.toc-link.toc-active {
+	border-left-color: var(--amber);
+	color: var(--text);
+	font-weight: 500;
+}
+
