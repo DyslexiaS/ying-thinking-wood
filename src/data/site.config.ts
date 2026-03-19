@@ -11,8 +11,9 @@ interface SiteConfig {
 export const siteConfig: SiteConfig = {
 	site: 'https://blog-template-gray.vercel.app/', // Write here your website url
 	author: 'YING TSAO', // Site author
-	title: "Ying's Forest", // Site title.
-	description: "Ying's Forest is a blog about the life of Ying Tsao.", // Description to display in the meta tags
+	title: "Ying's Thinking Wood", // Site title.
+	description:
+		"Ying's Thinking Wood is a blog where I slow down, wander through thoughts, and write about life — its quiet moments, lingering questions, and everything worth sitting with.", // Description to display in the meta tags
 	lang: 'en-GB',
 	ogLocale: 'en_GB',
 	paginationSize: 10 // Number of posts per page

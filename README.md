@@ -1,4 +1,4 @@
-# Ying's Forest
+# Ying's Thinking Wood
 
 A personal blog built with Astro, MDX, and Tailwind CSS. Forest-toned design with dark mode, syntax highlighting, and a focus on comfortable reading.
 

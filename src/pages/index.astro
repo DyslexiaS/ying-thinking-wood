@@ -1,17 +1,13 @@
 ---
 import ListPosts from '@/components/ListPosts'
-import TitlePage from '@/components/TitlePage'
 import BaseLayout from '@/layouts/BaseLayout'
 import { getPosts } from '@/utils'
-import { siteConfig } from '@/site-config'
 
 const MAX_POSTS = 8 // max number of posts to show on the home page
 const posts = await getPosts(MAX_POSTS)
 ---
 
 <BaseLayout title='Home'>
-	<TitlePage title={siteConfig.title} />
-
 	<div>
 		<ListPosts posts={posts} />
 	</div>
