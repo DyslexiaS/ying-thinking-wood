@@ -33,14 +33,14 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@astrojs/rss": "4.0.1",
-		"astro": "4.0.8",
+		"@astrojs/rss": "^4",
+		"astro": "^4",
 		"astro-font": "^0.0.72"
 	},
 	"devDependencies": {
-		"@astrojs/mdx": "2.0.3",
-		"@astrojs/sitemap": "^3.7.1",
-		"@astrojs/tailwind": "5.1.0",
+		"@astrojs/mdx": "^3",
+		"@astrojs/sitemap": "3.2.0",
+		"@astrojs/tailwind": "^5",
 		"@pagefind/default-ui": "^1.0.4",
 		"@tailwindcss/typography": "0.5.10",
 		"@tinacms/cli": "^1.5.30",
