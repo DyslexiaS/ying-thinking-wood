@@ -21,6 +21,9 @@ const titleSeparator = '•'
 
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`
 
+// sharing preview: Show site name on Home, article title only on other pages
+const ogTitle = title === 'Home' ? siteConfig.title : title
+
 import { join } from 'path'
 import { AstroFont } from 'astro-font'
 ---
@@ -48,7 +51,7 @@ import { AstroFont } from 'astro-font'
 <!-- Open Graph / Facebook -->
 <meta property='og:type' content={articleDate ? 'article' : 'website'} />
 <meta property='og:url' content={Astro.url} />
-<meta property='og:title' content={title} />
+<meta property='og:title' content={ogTitle} />
 <meta property='og:description' content={description} />
 <meta property='og:image' content={socialImageURL} />
 {
@@ -63,7 +66,7 @@ import { AstroFont } from 'astro-font'
 <!-- Twitter -->
 <meta property='twitter:card' content='summary_large_image' />
 <meta property='twitter:url' content={Astro.url} />
-<meta property='twitter:title' content={title} />
+<meta property='twitter:title' content={ogTitle} />
 <meta property='twitter:description' content={description} />
 <meta property='twitter:image' content={socialImageURL} />
 

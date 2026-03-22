@@ -16,8 +16,13 @@ import { siteConfig } from '@/site-config'
 		style='color: var(--text);'
 	>
 		<HeaderLink href='/' class='hover:opacity-60 transition-opacity duration-150'>Home</HeaderLink>
+		<!-- 
 		<HeaderLink href='/tags' class='hover:opacity-60 transition-opacity duration-150'>
 			Tags
+		</HeaderLink>
+		-->
+		<HeaderLink href='/rss.xml' class='hover:opacity-60 transition-opacity duration-150'>
+			RSS
 		</HeaderLink>
 	</nav>
 
@@ -58,12 +63,21 @@ import { siteConfig } from '@/site-config'
 	>
 		Home
 	</HeaderLink>
+	<!--
 	<HeaderLink
 		href='/tags'
 		class='text-sm font-semibold uppercase tracking-widest'
 		style='color: var(--text-muted);'
 	>
 		Tags
+	</HeaderLink>
+	-->
+	<HeaderLink
+		href='/rss.xml'
+		class='text-sm font-semibold uppercase tracking-widest'
+		style='color: var(--text-muted);'
+	>
+		RSS
 	</HeaderLink>
 </div>
 

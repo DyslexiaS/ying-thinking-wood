@@ -76,9 +76,9 @@
 		line-height: 1.45;
 	}
 
-	/* Light mode code block — more opaque background */
+	/* Light mode code block — GitHub-style background for readable contrast */
 	html:not(.dark) .shiki {
-		background-color: rgba(0, 0, 0, 0.055) !important;
+		background-color: #f6f8fa !important;
 	}
 
 	/* Comfortable reading typography, especially for Chinese */
@@ -117,11 +117,11 @@
 		color: var(--text-muted);
 	}
 
-	/* Shiki dark mode */
+	/* Shiki dark mode（雙主題） */
 	html.dark .shiki,
 	html.dark .shiki span {
 		color: var(--shiki-dark) !important;
-		background-color: #151A16 !important;
+		background-color: var(--shiki-dark-bg) !important;
 	}
 }
 
