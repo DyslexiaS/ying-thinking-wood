@@ -9,7 +9,7 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	site: 'https://blog-template-gray.vercel.app/', // Write here your website url
+	site: 'https://ying-thinking-wood.pages.dev/', // Write here your website url
 	author: 'YING TSAO', // Site author
 	title: "Ying's Thinking Wood", // Site title.
 	description:
