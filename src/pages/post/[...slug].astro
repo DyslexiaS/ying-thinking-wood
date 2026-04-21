@@ -28,6 +28,9 @@ type Props = {
 
 const { post, prevPost, nextPost } = Astro.props
 const { Content, headings, remarkPluginFrontmatter } = await post.render()
+const isWideHeroImage = post.data.heroImage
+	? post.data.heroImage.width >= post.data.heroImage.height
+	: false
 ---
 
 <BlogPost
@@ -39,7 +42,9 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render()
 	<div class='grid grid-cols-1 md:grid-cols-[20%_auto] gap-10 mt-8'>
 		<!-- aside -->
 		<aside class='md:flex flex-col hidden'>
-			<div class='sticky top-24 self-start hidden md:block transition-all duration-200'>
+			<div
+				class='sticky top-24 self-start hidden md:block max-h-[calc(100vh-7rem)] overflow-y-auto overscroll-contain pr-2 transition-all duration-200'
+			>
 				{headings && headings.length > 0 && <TableOfContents {headings} />}
 			</div>
 		</aside>
@@ -50,12 +55,14 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render()
 				post.data.heroImage && (
 					<Image
 						src={post.data.heroImage}
-						width={1000}
-						height={500}
 						quality={100}
 						format='jpg'
 						loading='eager'
-						class='rounded-md w-full max-h-[300px] md:max-h-[500px] mb-8 object-cover'
+						class={
+							isWideHeroImage
+								? 'rounded-md w-full max-h-[300px] md:max-h-[500px] mb-8 object-cover'
+								: 'block rounded-md mx-auto mb-8 w-auto max-w-full h-auto max-h-[70vh]'
+						}
 						style='filter: sepia(10%) saturate(88%);'
 						alt={`img of ${post.data.title}`}
 					/>
