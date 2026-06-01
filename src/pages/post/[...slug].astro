@@ -31,6 +31,19 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render()
 const isWideHeroImage = post.data.heroImage
 	? post.data.heroImage.width >= post.data.heroImage.height
 	: false
+const heroWidth = post.data.heroImage
+	? Math.min(isWideHeroImage ? 1200 : 800, post.data.heroImage.width)
+	: undefined
+const heroHeight =
+	post.data.heroImage && heroWidth
+		? Math.round((post.data.heroImage.height / post.data.heroImage.width) * heroWidth)
+		: undefined
+const heroWidths = post.data.heroImage
+	? [480, 768, 1200].filter((width) => width <= post.data.heroImage.width)
+	: undefined
+const heroSizes = isWideHeroImage
+	? '(max-width: 768px) 100vw, 1042px'
+	: '(max-width: 768px) 100vw, 800px'
 ---
 
 <BlogPost
@@ -55,9 +68,13 @@ const isWideHeroImage = post.data.heroImage
 				post.data.heroImage && (
 					<Image
 						src={post.data.heroImage}
-						quality={100}
-						format='jpg'
+						width={heroWidth}
+						height={heroHeight}
+						widths={heroWidths}
+						sizes={heroSizes}
+						format='webp'
 						loading='eager'
+						fetchpriority='high'
 						class={
 							isWideHeroImage
 								? 'rounded-md w-full max-h-[300px] md:max-h-[500px] mb-8 object-cover'

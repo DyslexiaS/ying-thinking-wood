@@ -41,6 +41,10 @@ const articleDate = pubDate.toISOString()
 				{title}
 			</h1>
 
+			<p class='text-lg md:text-xl leading-relaxed' style='color: var(--text-muted);'>
+				{description}
+			</p>
+
 			<!-- Tags -->
 			<div class='flex flex-wrap items-center gap-2'>
 				{tags.map((tag) => <Tag tag={tag} />)}
