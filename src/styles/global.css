@@ -84,14 +84,19 @@
 	/* Comfortable reading typography, especially for Chinese */
 	.prose {
 		font-size: 18px;
-		line-height: 1.95;
+		line-height: 1.75;
 		color: var(--text);
 	}
 
 	.prose p {
-		line-height: 1.95;
-		margin-top: 1.5em;
-		margin-bottom: 1.5em;
+		line-height: 1.75;
+		margin-top: 1.25em;
+		margin-bottom: 1.25em;
+	}
+
+	.prose.prose-lg p,
+	.prose.prose-xl p {
+		line-height: 1.75;
 	}
 
 	.prose ul,
@@ -114,14 +119,19 @@
 	@media (min-width: 768px) {
 		.prose {
 			font-size: 19px;
-			line-height: 2;
+			line-height: 1.8;
 		}
 		.prose p {
-			line-height: 2;
+			line-height: 1.8;
+		}
+
+		.prose.prose-lg p,
+		.prose.prose-xl p {
+			line-height: 1.8;
 		}
 
 		.prose li {
-			line-height: 1.75;
+			line-height: 1.65;
 		}
 	}
 
