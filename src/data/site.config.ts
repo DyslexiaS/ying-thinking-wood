@@ -13,8 +13,8 @@ export const siteConfig: SiteConfig = {
 	author: 'YING TSAO', // Site author
 	title: "Ying's Thinking Wood", // Site title.
 	description:
-		"Ying's Thinking Wood is a blog where I slow down, wander through thoughts, and write about life — its quiet moments, lingering questions, and everything worth sitting with.", // Description to display in the meta tags
-	lang: 'en-GB',
-	ogLocale: 'en_GB',
+		'一個讓自己放慢的地方。寫下生活裡的安靜時刻、還沒想完的問題，以及值得坐下來面對的事。', // Description to display in the meta tags
+	lang: 'zh-Hant',
+	ogLocale: 'zh_TW',
 	paginationSize: 10 // Number of posts per page
 }

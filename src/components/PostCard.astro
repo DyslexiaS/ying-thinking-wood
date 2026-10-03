@@ -16,17 +16,21 @@ const {
 	style='background-color: var(--bg-card); border: 1px solid var(--border);'
 	aria-label={title}
 >
-	<div class='overflow-hidden'>
-		<Image
-			src={heroImage}
-			width={600}
-			height={300}
-			format='webp'
-			class='w-full h-56 object-cover group-hover:scale-[102%] transition-transform duration-300'
-			style='filter: sepia(8%) saturate(90%);'
-			alt={`img of ${title}`}
-		/>
-	</div>
+	{
+		heroImage && (
+			<div class='overflow-hidden'>
+				<Image
+					src={heroImage}
+					width={600}
+					height={300}
+					format='webp'
+					class='w-full h-56 object-cover group-hover:scale-[102%] transition-transform duration-300'
+					style='filter: sepia(8%) saturate(90%);'
+					alt={`img of ${title}`}
+				/>
+			</div>
+		)
+	}
 
 	<div class='flex flex-col gap-2 flex-1 px-5 py-4'>
 		<p class='text-xl font-semibold leading-snug' style='color: var(--text);'>
